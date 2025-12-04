@@ -75,4 +75,3 @@ export class ClipboardHistory {
     void this.state.update(HISTORY_STATE_KEY, this.entries);
   }
 }
-

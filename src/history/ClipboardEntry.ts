@@ -6,4 +6,3 @@ export interface ClipboardEntry {
   filePath?: string;
   timestamp: number;
 }
-

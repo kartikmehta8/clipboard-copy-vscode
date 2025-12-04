@@ -15,7 +15,7 @@ export class HistoryQuickPick {
 
     if (!entries.length) {
       void vscode.window.showInformationMessage(
-        "Clipboard Code History: No entries for this workspace yet.",
+        "Clipboard Code History: No entries for this workspace yet."
       );
       return;
     }
@@ -40,8 +40,8 @@ export class HistoryQuickPick {
   }
 
   private toQuickPickItem(
-    entry: ClipboardEntry,
-  ): (vscode.QuickPickItem & { entry: ClipboardEntry }) {
+    entry: ClipboardEntry
+  ): vscode.QuickPickItem & { entry: ClipboardEntry } {
     const snippetPreview = this.buildPreview(entry.text);
     const date = new Date(entry.timestamp);
     const timestampLabel = date.toLocaleString();
@@ -55,12 +55,17 @@ export class HistoryQuickPick {
     };
   }
 
-  private buildPreview(text: string): { firstLine: string; multilinePreview: string } {
+  private buildPreview(text: string): {
+    firstLine: string;
+    multilinePreview: string;
+  } {
     const lines = text.split(/\r?\n/);
     const firstLine = this.truncate(lines[0], 80);
 
     const maxPreviewLines = 5;
-    const previewLines = lines.slice(0, maxPreviewLines).map((line) => this.truncate(line, 120));
+    const previewLines = lines
+      .slice(0, maxPreviewLines)
+      .map((line) => this.truncate(line, 120));
     const multilinePreview =
       previewLines.join("\n") + (lines.length > maxPreviewLines ? "\n…" : "");
 

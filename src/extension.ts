@@ -17,7 +17,10 @@ export function activate(context: vscode.ExtensionContext): void {
   const historyQuickPick = new HistoryQuickPick(history);
 
   const treeDataProvider = new HistoryTreeDataProvider(history);
-  vscode.window.registerTreeDataProvider("clipboardCodeHistory.view", treeDataProvider);
+  vscode.window.registerTreeDataProvider(
+    "clipboardCodeHistory.view",
+    treeDataProvider
+  );
 
   const copyCommand = vscode.commands.registerCommand(
     "clipboardCodeHistory.copy",
@@ -25,7 +28,7 @@ export function activate(context: vscode.ExtensionContext): void {
       recorder.recordFromActiveEditor();
       treeDataProvider.refresh();
       await vscode.commands.executeCommand("editor.action.clipboardCopyAction");
-    },
+    }
   );
 
   const cutCommand = vscode.commands.registerCommand(
@@ -34,14 +37,14 @@ export function activate(context: vscode.ExtensionContext): void {
       recorder.recordFromActiveEditor();
       treeDataProvider.refresh();
       await vscode.commands.executeCommand("editor.action.clipboardCutAction");
-    },
+    }
   );
 
   const showHistoryCommand = vscode.commands.registerCommand(
     "clipboardCodeHistory.showHistory",
     async () => {
       await historyQuickPick.show();
-    },
+    }
   );
 
   const clearHistoryCommand = vscode.commands.registerCommand(
@@ -50,9 +53,9 @@ export function activate(context: vscode.ExtensionContext): void {
       history.clear();
       treeDataProvider.refresh();
       void vscode.window.showInformationMessage(
-        "Clipboard Code History: Cleared history for this workspace.",
+        "Clipboard Code History: Cleared history for this workspace."
       );
-    },
+    }
   );
 
   const toggleTrackingCommand = vscode.commands.registerCommand(
@@ -61,9 +64,11 @@ export function activate(context: vscode.ExtensionContext): void {
       const enabled = trackingState.toggle();
 
       void vscode.window.showInformationMessage(
-        `Clipboard Code History: Tracking is now ${enabled ? "enabled" : "disabled"} for this workspace.`,
+        `Clipboard Code History: Tracking is now ${
+          enabled ? "enabled" : "disabled"
+        } for this workspace.`
       );
-    },
+    }
   );
 
   const restoreFromTreeCommand = vscode.commands.registerCommand(
@@ -74,7 +79,7 @@ export function activate(context: vscode.ExtensionContext): void {
       }
 
       await copyEntryToClipboard(entry);
-    },
+    }
   );
 
   context.subscriptions.push(
@@ -83,7 +88,7 @@ export function activate(context: vscode.ExtensionContext): void {
     showHistoryCommand,
     clearHistoryCommand,
     toggleTrackingCommand,
-    restoreFromTreeCommand,
+    restoreFromTreeCommand
   );
 }
 

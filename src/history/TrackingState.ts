@@ -29,4 +29,3 @@ export class TrackingState {
     return newValue;
   }
 }
-

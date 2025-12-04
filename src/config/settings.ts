@@ -22,4 +22,3 @@ export function getClipboardSettings(): ClipboardSettings {
     minLength: Math.max(0, minLength),
   };
 }
-

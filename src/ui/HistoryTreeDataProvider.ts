@@ -6,7 +6,10 @@ export class HistoryTreeItem extends vscode.TreeItem {
   public readonly entry: ClipboardEntry;
 
   constructor(entry: ClipboardEntry) {
-    super(HistoryTreeItem.buildLabel(entry), vscode.TreeItemCollapsibleState.None);
+    super(
+      HistoryTreeItem.buildLabel(entry),
+      vscode.TreeItemCollapsibleState.None
+    );
     this.entry = entry;
 
     this.description = entry.filePath ?? entry.fileName ?? "";
@@ -74,4 +77,3 @@ export class HistoryTreeDataProvider
     return Promise.resolve(items);
   }
 }
-
