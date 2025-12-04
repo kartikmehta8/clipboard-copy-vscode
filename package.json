@@ -1,0 +1,167 @@
+{
+  "name": "clipboard-code-history",
+  "displayName": "Clipboard Code History (Per Workspace)",
+  "description": "Per-workspace clipboard code history for VS Code. Keep the last N copied snippets scoped to the current project.",
+  "version": "0.0.1",
+  "publisher": "your-name-or-org",
+  "icon": "media/clipboard.svg",
+  "engines": {
+    "vscode": "^1.80.0"
+  },
+  "categories": [
+    "Productivity",
+    "Other"
+  ],
+  "activationEvents": [
+    "onStartupFinished",
+    "onCommand:clipboardCodeHistory.copy",
+    "onCommand:clipboardCodeHistory.cut",
+    "onCommand:clipboardCodeHistory.showHistory",
+    "onCommand:clipboardCodeHistory.clearHistory",
+    "onCommand:clipboardCodeHistory.toggleTracking"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "clipboardCodeHistory.copy",
+        "title": "Clipboard Code History: Copy (Track Clipboard)",
+        "category": "Clipboard Code History"
+      },
+      {
+        "command": "clipboardCodeHistory.cut",
+        "title": "Clipboard Code History: Cut (Track Clipboard)",
+        "category": "Clipboard Code History"
+      },
+      {
+        "command": "clipboardCodeHistory.showHistory",
+        "title": "Clipboard Code History: Show History",
+        "category": "Clipboard Code History"
+      },
+      {
+        "command": "clipboardCodeHistory.clearHistory",
+        "title": "Clipboard Code History: Clear History",
+        "category": "Clipboard Code History"
+      },
+      {
+        "command": "clipboardCodeHistory.toggleTracking",
+        "title": "Clipboard Code History: Toggle Tracking",
+        "category": "Clipboard Code History"
+      },
+      {
+        "command": "clipboardCodeHistory.restoreFromTree",
+        "title": "Clipboard Code History: Copy From Sidebar",
+        "category": "Clipboard Code History"
+      }
+    ],
+    "configuration": {
+      "type": "object",
+      "title": "Clipboard Code History",
+      "properties": {
+        "clipboardCodeHistory.maxItems": {
+          "type": "number",
+          "default": 20,
+          "minimum": 1,
+          "description": "Maximum number of clipboard entries stored per workspace."
+        },
+        "clipboardCodeHistory.ignoreEmpty": {
+          "type": "boolean",
+          "default": true,
+          "description": "Ignore empty or whitespace-only selections."
+        },
+        "clipboardCodeHistory.ignoreDuplicates": {
+          "type": "boolean",
+          "default": true,
+          "description": "Ignore immediately repeated snippets."
+        },
+        "clipboardCodeHistory.minLength": {
+          "type": "number",
+          "default": 2,
+          "minimum": 0,
+          "description": "Minimum snippet length to store. Set to 0 to store any size."
+        }
+      }
+    },
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "clipboardCodeHistory",
+          "title": "Clipboard History",
+          "icon": "media/clipboard.svg"
+        }
+      ]
+    },
+    "views": {
+      "clipboardCodeHistory": [
+        {
+          "id": "clipboardCodeHistory.view",
+          "name": "Clipboard History"
+        }
+      ]
+    },
+    "menus": {
+      "editor/context": [
+        {
+          "command": "clipboardCodeHistory.copy",
+          "group": "2_cutcopypaste@1"
+        },
+        {
+          "command": "clipboardCodeHistory.cut",
+          "group": "2_cutcopypaste@2"
+        },
+        {
+          "command": "clipboardCodeHistory.showHistory",
+          "group": "navigation@99"
+        }
+      ],
+      "commandPalette": [
+        {
+          "command": "clipboardCodeHistory.showHistory",
+          "category": "Clipboard Code History"
+        },
+        {
+          "command": "clipboardCodeHistory.clearHistory",
+          "category": "Clipboard Code History"
+        },
+        {
+          "command": "clipboardCodeHistory.toggleTracking",
+          "category": "Clipboard Code History"
+        }
+      ]
+    },
+    "keybindings": [
+      {
+        "command": "clipboardCodeHistory.copy",
+        "key": "ctrl+c",
+        "mac": "cmd+c",
+        "when": "editorTextFocus && !editorReadonly"
+      },
+      {
+        "command": "clipboardCodeHistory.cut",
+        "key": "ctrl+x",
+        "mac": "cmd+x",
+        "when": "editorTextFocus && !editorReadonly"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./"
+  },
+  "keywords": [
+    "clipboard",
+    "history",
+    "per-workspace",
+    "productivity",
+    "vscode-extension"
+  ],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "@types/node": "^18.0.0",
+    "@types/vscode": "^1.80.0",
+    "typescript": "^5.0.0"
+  }
+}
